@@ -1,0 +1,135 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+    struct node *prev;
+
+};
+ struct node *head=NULL,*newnode,*tail,*current;
+ int create()
+ {
+    int num;
+    printf("\nEnter the number of elements in LL:");
+    scanf("%d",&num);
+    int i=0;
+    while(i<num)
+    {
+        newnode=(struct node *)malloc(sizeof(struct node));
+        printf("\nEnter the  data:");
+        scanf("%d",&newnode->data);
+        newnode->next=NULL;
+        newnode->prev=NULL;
+
+        if(head==NULL)
+        {
+            head=tail=newnode;
+        }
+        else
+        {
+            newnode->prev=tail;
+            tail->next=newnode;
+            tail=newnode;
+        }
+        i++;
+    }
+    return num;
+ }
+ void display()
+ {
+    current=head;
+    while(current!=NULL)
+    {
+        printf("\t%d",current->data);
+        current=current->next;
+    }
+    return;
+ }
+void insertBeg(int *num)
+{
+   
+        newnode->next=head;
+        head->prev=newnode;
+        head=newnode;
+        *num++;
+        return;
+}
+void insertEnd(int *num)
+{
+  
+        newnode->prev=tail;
+        tail->next=newnode;
+        tail=newnode;
+        *num++;
+        return;
+}
+void insertPos(int *num)
+{     
+
+      int pos;
+        printf("\nEnter the pos to insert:");
+        scanf("%d",&pos);
+        if(pos<0 || pos>*num+1)
+        {
+        printf("Enter a valid position");
+        return;
+        }
+        else if(pos==1)
+        {
+            insertBeg(num);
+            return;
+        }
+        else if(pos==*num+1)
+        {
+            insertEnd(num);
+            return;
+        }
+        else
+        {
+        current=head;
+        for(int i=1;i<pos-1;i++)
+        {
+            current=current->next;
+        }
+        newnode->prev=current;
+        newnode->next=current->next;
+        current->next->prev=newnode;
+        current->next=newnode;
+        *num++;
+        return;
+        }
+}
+ void insert(int num)
+ {
+        int inschoice=2;
+    printf("\nWhere do want to insert 1.At Beginning 2.At End 3.At a position:\t");
+    scanf("%d",&inschoice);
+     newnode=(struct node *)malloc(sizeof(struct node));
+        printf("\nEnter the  data:");
+        scanf("%d",&newnode->data);
+        newnode->next=NULL;
+        newnode->prev=NULL;
+    switch (inschoice)
+    {
+    case 1: insertBeg(&num);
+        break;
+    case 2: insertEnd(&num);
+        break;
+    case 3: insertPos(&num);
+    default:
+    printf("Enter a correct choice");
+        break;
+    }
+ }
+    
+
+ void main()
+ {
+    int num;
+    num=create();
+    display();
+    while(1){
+    insert(num);
+    display();}
+ }
