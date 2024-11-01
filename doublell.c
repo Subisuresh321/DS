@@ -123,13 +123,103 @@ void insertPos(int *num)
     }
  }
     
+void delete(int num)
+{
+    int delchoice=2;
+    printf("\nWhere do want to delete 1.At Beginning 2.At End 3.At a position 4. or a specific number:");
+    scanf("%d",&delchoice);
+    switch (delchoice)
+    {
+        case 1: deleteBeg(&num);
+        break;
+        case 2: deleteEnd(&num);
+        break;
+        case 3: delPos(&num);
+        break;
+        case 4:delNum(&num);
+        break;
+        default:printf("Enter a correct choice");
+        break;
+    }
+    return;
+}
+
+void deleteBeg(int *num)
+{
+    if(head==NULL)
+    {
+        printf("List is empty");
+    }
+    else
+    {
+        if(head->next==NULL)
+        {
+            free(head);
+        }
+        else
+        {
+            head=head->next;
+            free(head->prev);
+            head->prev=NULL;
+
+        }
+        *num--;
+    }
+    return;
+}
+
+void deleteEnd()
+{
+    if(head==NULL)
+    {
+        printf("List is empty");
+    }
+    else
+    {
+        if(head->next==NULL)
+        {
+            free(head);
+        }
+        else
+        {
+            tail=tail->prev;
+            free(tail->next);
+            tail->next=NULL;
+        }
+    }
+    return;
+}
+
+void delPos()
+{
+    int pos;
+    printf("Enter position to delete: ");
+    scanf("%d",&pos);
+    if(pos<1)
+    {
+        printf("Invalid position");
+    }
+    else
+    {
+        if(pos==1)
+        {
+            deleteBeg();
+            return;
+        }
+        else if(pos==num)
+        {
+            deleteEnd();
+        }
+    }
+}
 
  void main()
  {
     int num;
     num=create();
     display();
-    while(1){
     insert(num);
+    while(1){
+    delete(num)
     display();}
  }
