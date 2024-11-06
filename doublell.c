@@ -52,7 +52,7 @@ void insertBeg(int *num)
         newnode->next=head;
         head->prev=newnode;
         head=newnode;
-        *num++;
+        (*num)++;
         return;
 }
 void insertEnd(int *num)
@@ -61,7 +61,7 @@ void insertEnd(int *num)
         newnode->prev=tail;
         tail->next=newnode;
         tail=newnode;
-        *num++;
+        (*num)++;
         return;
 }
 void insertPos(int *num)
@@ -70,7 +70,7 @@ void insertPos(int *num)
       int pos;
         printf("\nEnter the pos to insert:");
         scanf("%d",&pos);
-        if(pos<0 || pos>*num+1)
+        if(pos<0 || pos>(*num)+1)
         {
         printf("Enter a valid position");
         return;
@@ -80,7 +80,7 @@ void insertPos(int *num)
             insertBeg(num);
             return;
         }
-        else if(pos==*num+1)
+        else if(pos==(*num)+1)
         {
             insertEnd(num);
             return;
@@ -96,11 +96,11 @@ void insertPos(int *num)
         newnode->next=current->next;
         current->next->prev=newnode;
         current->next=newnode;
-        *num++;
+        (*num)++;
         return;
         }
 }
- void insert(int num)
+ void insert(int *num)
  {
         int inschoice=2;
     printf("\nWhere do want to insert 1.At Beginning 2.At End 3.At a position:\t");
@@ -112,37 +112,16 @@ void insertPos(int *num)
         newnode->prev=NULL;
     switch (inschoice)
     {
-    case 1: insertBeg(&num);
+    case 1: insertBeg(num);
         break;
-    case 2: insertEnd(&num);
+    case 2: insertEnd(num);
         break;
-    case 3: insertPos(&num);
+    case 3: insertPos(num);
     default:
     printf("Enter a correct choice");
         break;
     }
  }
-    
-void delete(int num)
-{
-    int delchoice=2;
-    printf("\nWhere do want to delete 1.At Beginning 2.At End 3.At a position 4. or a specific number:");
-    scanf("%d",&delchoice);
-    switch (delchoice)
-    {
-        case 1: deleteBeg(&num);
-        break;
-        case 2: deleteEnd(&num);
-        break;
-        case 3: delPos(&num);
-        break;
-        case 4:delNum(&num);
-        break;
-        default:printf("Enter a correct choice");
-        break;
-    }
-    return;
-}
 
 void deleteBeg(int *num)
 {
@@ -163,12 +142,12 @@ void deleteBeg(int *num)
             head->prev=NULL;
 
         }
-        *num--;
+        (*num)--;
     }
     return;
 }
 
-void deleteEnd()
+void deleteEnd(int *num)
 {
     if(head==NULL)
     {
@@ -186,11 +165,12 @@ void deleteEnd()
             free(tail->next);
             tail->next=NULL;
         }
+        (*num)--;
     }
     return;
 }
 
-void delPos()
+void delPos(int *num)
 {
     int pos;
     printf("Enter position to delete: ");
@@ -203,23 +183,56 @@ void delPos()
     {
         if(pos==1)
         {
-            deleteBeg();
+            deleteBeg(num);
             return;
         }
-        else if(pos==num)
+        else if(pos==*num)
         {
-            deleteEnd();
+            deleteEnd(num);
+        }
+        else
+        {   
+            current=head;
+            for(int i=1;i<pos;i++)
+            {
+                current=current->next;
+            }
+            current->prev->next=current->next;
+            current->next->prev=current->prev;
+            free(current);
+            (*num)--;
         }
     }
 }
+void delete(int *num)
+{
+    int delchoice=2;
+    printf("\nWhere do want to delete 1.At Beginning 2.At End 3.At a position 4. or a specific number:");
+    scanf("%d",&delchoice);
+    switch (delchoice)
+    {
+        case 1: deleteBeg(num);
+        break;
+        case 2: deleteEnd(num);
+        break;
+        case 3: delPos(num);
+        break;
+        // c
+        default:printf("Enter a correct choice");
+        break;
+    }
+    return;
+}
+
+
 
  void main()
  {
     int num;
     num=create();
     display();
-    insert(num);
+    insert(&num);
     while(1){
-    delete(num)
+    delete(&num);
     display();}
  }
