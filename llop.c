@@ -8,11 +8,10 @@ struct node {
 
 struct node *head = NULL, *current;
 
-void create() {
-    int num;
+void create(int *node) {
     printf("\nEnter the number of elements in LL: ");
-    scanf("%d", &num);
-    for(int i = 0; i < num; i++) {
+    scanf("%d", node);
+    for(int i = 0; i < *node; i++) {
         struct node *newnode = (struct node *)malloc(sizeof(struct node));
         printf("\nEnter the data: ");
         scanf("%d", &newnode->data);
@@ -165,7 +164,7 @@ int main() {
         printf("\nEnter an option:\t1.Create\t2.Display\t3.Insert\t4.Delete\t5.Exit\n");
         scanf("%d", &op);
         switch(op) {
-            case 1: create(); break;
+            case 1: create(&num); break;
             case 2: display(); break;
             case 3: insert(&num); break;
             case 4: delete(&num); break;

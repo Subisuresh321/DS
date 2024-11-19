@@ -8,13 +8,13 @@ struct node
 
 };
  struct node *head=NULL,*newnode,*tail,*current;
- int create()
+ void create(int *node)
  {
     int num;
     printf("\nEnter the number of elements in LL:");
-    scanf("%d",&num);
+    scanf("%d",node);
     int i=0;
-    while(i<num)
+    while(i<*node)
     {
         newnode=(struct node *)malloc(sizeof(struct node));
         printf("\nEnter the  data:");
@@ -34,7 +34,6 @@ struct node
         }
         i++;
     }
-    return num;
  }
  void display()
  {
@@ -70,7 +69,7 @@ void insertPos(int *num)
       int pos;
         printf("\nEnter the pos to insert:");
         scanf("%d",&pos);
-        if(pos<0 || pos>(*num)+1)
+        if(pos<=0 || pos>(*num)+1)
         {
         printf("Enter a valid position");
         return;
@@ -102,14 +101,14 @@ void insertPos(int *num)
 }
  void insert(int *num)
  {
-        int inschoice=2;
-    printf("\nWhere do want to insert 1.At Beginning 2.At End 3.At a position:\t");
-    scanf("%d",&inschoice);
-     newnode=(struct node *)malloc(sizeof(struct node));
+    newnode=(struct node *)malloc(sizeof(struct node));
         printf("\nEnter the  data:");
         scanf("%d",&newnode->data);
         newnode->next=NULL;
         newnode->prev=NULL;
+        int inschoice=2;
+    printf("\nWhere do want to insert 1.At Beginning 2.At End 3.At a position:\t");
+    scanf("%d",&inschoice);
     switch (inschoice)
     {
     case 1: insertBeg(num);
@@ -117,10 +116,11 @@ void insertPos(int *num)
     case 2: insertEnd(num);
         break;
     case 3: insertPos(num);
-    default:
-    printf("Enter a correct choice");
+            break;
+    default:printf("Enter a correct choice");
         break;
     }
+    return;
  }
 
 void deleteBeg(int *num)
@@ -175,7 +175,7 @@ void delPos(int *num)
     int pos;
     printf("Enter position to delete: ");
     scanf("%d",&pos);
-    if(pos<1)
+    if(pos<1 || pos>*num)
     {
         printf("Invalid position");
     }
@@ -217,7 +217,6 @@ void delete(int *num)
         break;
         case 3: delPos(num);
         break;
-        // c
         default:printf("Enter a correct choice");
         break;
     }
@@ -226,13 +225,21 @@ void delete(int *num)
 
 
 
- void main()
- {
-    int num;
-    num=create();
-    display();
-    insert(&num);
-    while(1){
-    delete(&num);
-    display();}
- }
+
+int main() {
+    int num = 0;
+    int op = 0;
+    while(op != 5) {
+        printf("\nEnter an option:\t1.Create\t2.Display\t3.Insert\t4.Delete\t5.Exit\n");
+        scanf("%d", &op);
+        switch(op) {
+            case 1: create(&num); break;
+            case 2: display(); break;
+            case 3: insert(&num); break;
+            case 4: delete(&num); break;
+            case 5: break;
+            default: printf("Enter a valid option\n"); break;
+        }
+    }
+    return 0;
+}
