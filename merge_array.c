@@ -17,16 +17,14 @@ void main()
     for(int i=0;i<num2;i++)
     scanf("%d",&arr2[i]);
 
-    for(int i=0;i<num3;i++)
-    {
-        if(i<num1)
-        arr3[i]=arr1[i];
-        else
-        arr3[i]=arr2[i%num1];
-    }
+    for(int i=0;i<num1;i++)
+    arr3[i]=arr1[i];
+    for(int i=0;i<num2;i++)
+    arr3[num1+i]=arr2[i];
+    
+    
      printf("enter the elements of merged array");
     for(int i=0;i<num3;i++)
     printf("%d\t",arr3[i]);
 
 }
-
