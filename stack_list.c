@@ -37,7 +37,7 @@ void pop()
         return;
     }
     else{
-        top=top->next;
+        top=top->next; 
         return;
     }
 }
