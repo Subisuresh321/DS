@@ -247,7 +247,7 @@ void delete()
 }
 void main()
 {
-    
+
     int op = 0;
     while (op != 5)
     {
