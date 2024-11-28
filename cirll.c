@@ -50,14 +50,14 @@ void insBeg()
     }
     else
     {
-        current=head;
-        while (current->next!=head)
+        current = head;
+        while (current->next != head)
         {
-            current=current->next;
+            current = current->next;
         }
-        newnode->next=head;
-        current->next=newnode;
-        head=newnode;
+        newnode->next = head;
+        current->next = newnode;
+        head = newnode;
     }
     num++;
     return;
@@ -84,63 +84,194 @@ void insEnd(int flag)
         current->next = newnode;
         newnode->next = head;
     }
-    if(flag)
-    num++;
+    if (flag)
+        num++;
     return;
 }
 
 void insPos()
 {
     int pos;
-    printf("Enter a Postion <= %d :",num);
-    scanf("%d",&pos);
-    if(pos>num || pos<1)
+    printf("Enter a Postion <= %d :", num);
+    scanf("%d", &pos);
+    if (pos > num || pos < 1)
     {
         printf("Enter a valid position");
         insPos();
     }
-    else if(pos==1)
-    insBeg();
+    else if (pos == 1)
+        insBeg();
     else
     {
         newnode = (struct node *)malloc(sizeof(struct node));
         newnode->next = NULL;
-        current=head;
-        for(int i=1;i<pos-1;i++)
+        printf("\nEnter the data: ");
+        scanf("%d", &newnode->data);
+        current = head;
+        for (int i = 1; i < pos - 1; i++)
         {
-            current=current->next;
+            current = current->next;
         }
-        newnode->next=current->next;
-        current->next=newnode;
+        newnode->next = current->next;
+        current->next = newnode;
     }
     num++;
     return;
 }
 void insert()
 {
-    int insop=1;
+    int insop = 1;
     printf("\nInsert at 1.At beginning 2.At end 3.At a position:\t");
-    scanf("%d",&insop);
+    scanf("%d", &insop);
     switch (insop)
     {
-    case 1:insBeg();
+    case 1:
+        insBeg();
         break;
-    case 2:insEnd(1);
+    case 2:
+        insEnd(1);
         break;
-    case 3: insPos();
+    case 3:
+        insPos();
         break;
-    default: printf("Enter the valid opertion");
-            insert();
+    default:
+        printf("\nEnter the valid opertion");
+        insert();
         break;
     }
     return;
 }
+
+void delBeg()
+{
+    if (head == NULL)
+        printf("\nLinked list is empty");
+    else
+    {
+        if (head->next == head)
+        {
+            free(head);
+            head = NULL;
+        }
+        else
+        {
+            struct node *temp;
+            temp = current = head;
+            while (current->next != head)
+            {
+                current = current->next;
+            }
+            head = head->next;
+            current->next = head;
+            free(temp);
+        }
+        num--;
+    }
+}
+
+void delEnd()
+{
+    if (head == NULL)
+        printf("\nLinked list is empty");
+    else
+    {
+        if (head->next == head)
+        {
+            free(head);
+            head = NULL;
+        }
+        else
+        {
+            struct node *temp;
+            current = head;
+            while (current->next->next != head)
+            {
+                current = current->next;
+            }
+            temp = current->next;
+            current->next = head;
+            free(temp);
+        }
+        num--;
+    }
+}
+
+void delPos()
+{
+    int pos;
+    printf("Enter a Postion <= %d :", num);
+    scanf("%d", &pos);
+    if (pos > num || pos < 1)
+    {
+        printf("Enter a valid position");
+        delPos();
+    }
+    else if (pos == 1)
+        delBeg();
+    else
+    {
+        struct node *temp;
+        current = head;
+        for (int i = 1; i < pos - 1; i++)
+        {
+            current = current->next;
+        }
+        temp = current->next;
+        current->next = current->next->next;
+        free(temp);
+        num--;
+    }
+    return;
+}
+void delete()
+{
+    int delop;
+    printf("\nWhere do you want to delete 1. At Beginning 2. At End 3. At a position: ");
+    scanf("%d", &delop);
+    switch (delop)
+    {
+    case 1:
+        delBeg();
+        break;
+    case 2:
+        delEnd();
+        break;
+    case 3:
+        delPos();
+        break;
+    default:
+        printf("Enter a correct choice\n");
+        delete ();
+        break;
+    }
+}
 void main()
 {
-    create();
-    while(1)
+    
+    int op = 0;
+    while (op != 5)
     {
-    display();
-    insert();
+        printf("\nEnter an option:\t1.Create\t2.Display\t3.Insert\t4.Delete\t5.Exit\n");
+        scanf("%d", &op);
+        switch (op)
+        {
+        case 1:
+            create();
+            break;
+        case 2:
+            display();
+            break;
+        case 3:
+            insert();
+            break;
+        case 4:
+            delete ();
+            break;
+        case 5:
+            break;
+        default:
+            printf("Enter a valid option\n");
+            break;
+        }
     }
 }
