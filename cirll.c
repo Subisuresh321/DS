@@ -8,7 +8,7 @@ struct node
 };
 int num;
 struct node *newnode, *head = NULL, *current;
-void insEnd();
+void insEnd(int flag);
 void create()
 {
     printf("\nEnter the number of elements:");
