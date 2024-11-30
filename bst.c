@@ -1,23 +1,54 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-struct node{
+struct node
+{
     int data;
     struct node *left;
     struct node *right;
 };
 
-struct node *root,*current;
+struct node *root = NULL, *leaf, *newnode,*parent;
 
 void create()
 {
     int num;
     printf("\nEnter the initial numbers of nodes:");
-    scanf("%d",&num);
-    int i=0;
-    while (i<num)
+    scanf("%d", &num);
+    int i = 0;
+    while (i < num)
     {
-    insert()
+        insert();
+        i++;
     }
-    
+}
+
+void insert()
+{
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->left = NULL;
+    newnode->right = NULL;
+    printf("\nEnter the data:");
+    scanf("%d", &newnode->data);
+    if (root == NULL)
+    {
+        root = newnode;
+    }
+    else
+    {
+        leaf = root;
+        parent=NULL;
+        while (leaf!=NULL)
+        {
+            parent=leaf;
+            if (newnode->data < leaf->data)
+                leaf = leaf->left;
+            else
+                leaf=leaf->right;
+        }
+        if(newnode->data<parent->data)
+        parent->left=newnode;
+        else
+        parent->right=newnode;
+    }
 }
