@@ -65,7 +65,7 @@ void display(struct node *root)
     if (root == NULL)
         return;
     display(root->left);
-    printf("%d\t", root->data);
+    printf("%d\t\t", root->data);
     display(root->right);
 }
 
