@@ -198,7 +198,7 @@ void deleteEle(struct node *temp)
     else if (temp->left != NULL && temp->right != NULL)
     {   
         struct node *succ = findSucc(temp); 
-        printf("%d is SUCC",succ->data);
+        printf("\n%d is SUCC\n",succ->data);
         temp->data = succ->data;
         parent=succParent;
         deleteEle(succ);
