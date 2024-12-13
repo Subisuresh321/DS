@@ -4,7 +4,14 @@
 int graph[max][max];
 void dfs(int num,int visited[],int s)
 {
-    for()
+    if(visited[s]==0)
+    {
+        visited[s]=1;
+        for(int i=0;i<num;i++){
+        if(graph[s][i]==1)
+        dfs(num,visited,i);
+        }
+    }
 }
 void main()
 {
@@ -37,4 +44,7 @@ void main()
     }
     int s=0;
     dfs(num,visited,s);
+    for (int i = 0; i < num; i++)
+        if(visited[i] == 1)
+        printf("%d\t",i);
 }
