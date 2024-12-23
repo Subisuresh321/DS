@@ -6,7 +6,7 @@ int A[max][max] = {0};
 
 void Union(int minU, int minV, int parent[], int size[]);
 int Find(int V, int parent[]);
-void Union(int minU, int minV, int parent[], int size[]);
+
 
 void prims(int A[][max], int n)
 {
