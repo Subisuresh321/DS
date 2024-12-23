@@ -6,37 +6,37 @@ int A[max][max] = {0};
 
 void Union(int minU, int minV, int parent[], int size[]);
 int Find(int V, int parent[]);
-
+void Union(int minU, int minV, int parent[], int size[]);
 
 void prims(int A[][max], int n)
 {
     int min, minV, minU, minVP, minUP, edgeCount = 1;
-    int parent[n], size[n],visited[n],visitCount;
+    int parent[n], size[n], visited[n];
     for (int i = 0; i < n; i++)
     {
         parent[i] = i;
         size[i] = 1;
+        visited[i] = 0;
     }
-    visited[0]=0;
-    visitCount=1;
+    visited[0] = 1;
     while (edgeCount < n)
     {
-        int j;
         min = INT_MAX;
-        for (int i = 0; i < visitCount; i++)
+        for (int i = 0; i < n; i++)
         {
-            i=visited[i];
-            for (j = 0; j < n; j++)
+            if (visited[i])
             {
-                if (A[i][j] < min)
+                for (int j = 0; j < n; j++)
                 {
-                    min = A[i][j];
-                    minU = i;
-                    minV = j;
+                    if (A[i][j] < min)
+                    {
+                        min = A[i][j];
+                        minU = i;
+                        minV = j;
+                    }
                 }
             }
         }
-        
 
         if (min == INT_MAX)
             break;
@@ -47,7 +47,7 @@ void prims(int A[][max], int n)
         {
             printf("%d->", min);
             Union(minUP, minVP, parent, size);
-            visited[visitCount++]=minV;
+            visited[minV] = 1;
             edgeCount++;
         }
     }
