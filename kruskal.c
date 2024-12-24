@@ -70,7 +70,7 @@ void Union(int minUP,int minVP,int parent[],int size[])
 
 void main()
 {
-    int n, i = 0, j, k, weight;
+    int n, weight;
     printf("\nEnter the number of vertices in graph:");
     scanf("%d", &n);
     printf("Enter the adjacency matrix(weight) : \n");
