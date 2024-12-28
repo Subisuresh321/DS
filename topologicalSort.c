@@ -22,7 +22,7 @@ void topSort(int A[][max], int n)
             if (flag==1)
             {
                 sorted[j] = 1;
-                printf("%d",j);
+                printf("%d\t",j);
                 for (int k = 0; k < n; k++)
                     A[j][k] = 0;
                 j = 0;
