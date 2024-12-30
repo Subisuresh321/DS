@@ -2,23 +2,25 @@
 #include <stdlib.h>
 #define max 100
 int graph[max][max];
-void dfs(int num,int visited[],int s)
+void dfs(int num, int visited[], int s)
 {
-    if(visited[s]==0)
+    visited[s]=1;
+    printf("%d->",s);
+    for (int i = 0; i < num; i++)
     {
-        visited[s]=1;
-        for(int i=0;i<num;i++){
-        if(graph[s][i]==1)
-        dfs(num,visited,i);
+        if (graph[s][i] == 1 && visited[i] != 1)
+        {
+            dfs(num, visited, i);
         }
     }
 }
+
 void main()
 {
-    int num,i=0,j,k;
+    int num, i = 0, j, k;
     printf("\nEnter the number of vertices in graph:");
     scanf("%d", &num);
-    int queue[num],visited[num];
+    int visited[num];
     for (int i = 0; i < num; i++)
         visited[i] = 0;
     int maxEdge = (num * (num - 1)) / 2;
@@ -42,9 +44,6 @@ void main()
         graph[j][k] = graph[k][j] = 1;
         i++;
     }
-    int s=0;
-    dfs(num,visited,s);
-    for (int i = 0; i < num; i++)
-        if(visited[i] == 1)
-        printf("%d\t",i);
+    int s = 0;
+    dfs(num, visited, s);
 }

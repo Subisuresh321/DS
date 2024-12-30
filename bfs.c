@@ -13,24 +13,17 @@ void BFS(int graph[][max], int num)
     while (front < rear)
     {
         s=queue[front++];
+        printf("%d->",s);
         for (int i = 0; i < num; i++)
         {
-            if (graph[s][i] == 1)
+            if (graph[s][i] == 1 && visited[i] == 0)
             {
-                if (visited[i] == 0)
-                {
                     queue[rear++] = i;
                     visited[i] = 1;
-                }
             }
         }
         
     }
-        for (int i = 0; i <num; i++)
-        {
-            if(visited[i]==1)
-            printf("%d\t",i);
-        }
         
 }
     void main()
