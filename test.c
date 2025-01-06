@@ -10,6 +10,10 @@ struct node *newnode,*root=NULL,*parent=NULL;
 void inorderDis(struct node *root);
 struct node* insertEle(struct node *root,struct node *newnode);
 void insert();
+void delete();
+struct node* findSucc(struct node *root);
+struct node* deleteEle(struct node *root,int x);
+
 void create(){
     int n;
     printf("Enter the number of nodes: ");
@@ -50,6 +54,33 @@ void inorderDis(struct node *root){
     inorderDis(root->right);
 }
 
+void preorderDis(struct node *root){
+    if(root ==NULL)
+    return;
+    printf("%d->",root->data);
+    preorderDis(root->left);
+    preorderDis(root->right);
+}
+void postorderDis(struct node *root){
+    if(root ==NULL)
+    return;
+    postorderDis(root->left);
+    postorderDis(root->right);
+    printf("%d->",root->data);
+}
+void delete(){
+    if(root==NULL)
+    {
+        printf("\nNo node to Delete");
+        return;
+    }
+    int x;
+    printf("\nEnter the node to delete: ");
+    scanf("%d",&x);
+    root=deleteEle(root,x);
+    inorderDis(root);
+    return;
+}
 struct node* deleteEle(struct node *root,int x){
     if(root==NULL){
         return root;
@@ -87,7 +118,17 @@ struct node* deleteEle(struct node *root,int x){
     }
     return root;
 }
+struct node* findSucc(struct node *root){
+    struct node *temp=root->right;
+    while (temp->left!=NULL)
+    {
+        temp=temp->left;
+    }
+    return temp;
+    
+}
 
 void main(){
     create();
+    postorderDis(root);
 }
