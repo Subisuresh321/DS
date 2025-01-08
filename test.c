@@ -6,6 +6,7 @@ struct node{
     struct node *right;
 };
 struct node *newnode,*root=NULL,*parent=NULL;
+int flag=0;
 
 void inorderDis(struct node *root);
 struct node* insertEle(struct node *root,struct node *newnode);
@@ -13,6 +14,8 @@ void insert();
 void delete();
 struct node* findSucc(struct node *root);
 struct node* deleteEle(struct node *root,int x);
+struct node* searchEle(struct node *root,int x);
+void search();
 
 void create(){
     int n;
@@ -20,8 +23,7 @@ void create(){
     scanf("%d",&n);
     for(int i=0;i<n;i++){
         insert();
-    }
-    inorderDis(root);    
+    }   
 }
 
 void insert(){
@@ -77,8 +79,13 @@ void delete(){
     int x;
     printf("\nEnter the node to delete: ");
     scanf("%d",&x);
+    if(searchEle(root,x)!=NULL){
     root=deleteEle(root,x);
     inorderDis(root);
+    }
+    else{
+        printf("\nElement to delete Not Found!!");
+    }
     return;
 }
 struct node* deleteEle(struct node *root,int x){
@@ -128,7 +135,33 @@ struct node* findSucc(struct node *root){
     
 }
 
+struct node* searchEle(struct node * root,int x){
+    if(root==NULL || root->data==x)
+    return root;
+    else if(root->data>x){
+        return searchEle(root->left,x);
+    }
+    else {
+        return searchEle(root->right,x);
+    }
+    
+}
+
+void search(){
+    if(root==NULL)
+    {
+        printf("\nNo node to Delete");
+        return;
+    }
+    int x;
+    printf("\nEnter the element to search: ");
+    scanf("%d",&x);
+    if(searchEle(root,x)!=NULL){
+        printf("\nThe Element %d Found!!",x);
+    }
+    else
+    printf("\nThe Element %d Not Found!!",x);
+}
 void main(){
-    create();
-    postorderDis(root);
+    
 }
