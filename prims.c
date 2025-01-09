@@ -4,13 +4,9 @@
 #define max 10
 int A[max][max] = {0};
 
-void Union(int minU, int minV, int parent[], int size[]);
-int Find(int V, int parent[]);
-void Union(int minU, int minV, int parent[], int size[]);
-
 void prims(int A[][max], int n)
 {
-    int min, minV, minU, minVP, minUP, edgeCount = 1;
+    int min, minV, minU,cost=0, edgeCount = 1;
     int parent[n], size[n], visited[n];
     for (int i = 0; i < n; i++)
     {
@@ -28,12 +24,13 @@ void prims(int A[][max], int n)
             {
                 for (int j = 0; j < n; j++)
                 {
-                    if (A[i][j] < min)
-                    {
-                        min = A[i][j];
-                        minU = i;
-                        minV = j;
-                    }
+                    
+                        if (!visited[j]&&A[i][j] < min)
+                        {
+                            min = A[i][j];
+                            minU = i;
+                            minV = j;
+                        }
                 }
             }
         }
@@ -41,41 +38,12 @@ void prims(int A[][max], int n)
         if (min == INT_MAX)
             break;
         A[minU][minV] = A[minV][minU] = INT_MAX;
-        minUP = Find(minU, parent);
-        minVP = Find(minV, parent);
-        if (minUP != minVP)
-        {
-            printf("%d->", min);
-            Union(minUP, minVP, parent, size);
-            visited[minV] = 1;
-            edgeCount++;
-        }
+        printf("%d->", min);
+        cost+=min;
+        visited[minV] = 1;
+        edgeCount++;
     }
-}
-
-int Find(int V, int parent[])
-{
-    if (parent[V] == V)
-        return V;
-    else
-    {
-        parent[V] = Find(parent[V], parent); // path compression
-        return parent[V];
-    }
-}
-
-void Union(int minUP, int minVP, int parent[], int size[])
-{
-    if (size[minUP] < size[minVP])
-    {
-        parent[minVP] = minUP;
-        size[minUP] += size[minVP];
-    }
-    else
-    {
-        parent[minUP] = minVP;
-        size[minVP] += size[minUP];
-    }
+    printf("\nThe total cost:%d",cost);
 }
 
 void main()
